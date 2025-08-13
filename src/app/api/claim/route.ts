@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
 
         // data = 남은 수량(int)
         return NextResponse.json({ ok: true, remaining: data }, { status: 200 });
-    } catch (e: any) {
+    } catch (e: unknown) {
         console.error(e);
         return NextResponse.json({ ok: false, reason: 'BAD_REQUEST' }, { status: 400 });
     }
@@ -67,7 +67,7 @@ export async function GET(req: NextRequest) {
 
         if (error) throw error;
         return NextResponse.json({ ok: true, items: data }, { status: 200 });
-    } catch (e: any) {
+    } catch (e: unknown) {
         console.error(e);
         return NextResponse.json({ ok: false, reason: 'SERVER_ERROR' }, { status: 500 });
     }

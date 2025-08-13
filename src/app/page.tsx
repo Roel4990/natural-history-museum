@@ -25,7 +25,7 @@ export default function Page() {
           (json.items as Array<{ product: Product; remaining: number }>).map(i => [i.product, i.remaining])
       ) as StockMap;
       setStock(map);
-    } catch (e: any) {
+    } catch (e: unknown) {
       setErrorMsg(e?.message ?? '네트워크 오류');
     }
   }

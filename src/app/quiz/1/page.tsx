@@ -13,7 +13,7 @@ export default function Quiz1Page() {
     const handleModalClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         setSelectedModal(null);
-        router.push("/prize")
+        if(selectedModal === "success") router.push("/prize")
     };
     const modalImageSrc =
         selectedModal === "success"

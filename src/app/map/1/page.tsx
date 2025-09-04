@@ -36,7 +36,7 @@ export default function MapPage() {
     const handleModalClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         setSelectedModal(null);
-        router.push("/quiz/1")
+        if(selectedModal === "success") router.push("/quiz/1")
     };
 
     const modalImageSrc =

@@ -22,10 +22,8 @@ async function fetchStats(date: string): Promise<StatsResponse> {
         return {
             date,
             visits: 0,
-            mapSearches: null,
             coupons: {
-                date,
-                issued: 0,
+                issueCount: 0,
                 remaining: 200,
                 soldOut: false,
             },
@@ -76,12 +74,8 @@ export default function AdminPage() {
                                 <div className="text-2xl font-bold text-gray-900">{data?.visits ?? 0}</div>
                             </div>
                             <div className="bg-white rounded-xl border p-4 shadow-sm">
-                                <div className="text-sm text-gray-500">지도 탐색 수</div>
-                                <div className="text-2xl font-bold text-gray-900">{data?.mapSearches ?? 0}</div>
-                            </div>
-                            <div className="bg-white rounded-xl border p-4 shadow-sm">
                                 <div className="text-sm text-gray-500">발행/잔여</div>
-                                <div className="text-2xl font-bold text-gray-900">{data?.coupons.issued ?? 0} / {data?.coupons.remaining ?? 0}</div>
+                                <div className="text-2xl font-bold text-gray-900">{data?.coupons.issueCount ?? 0} / {data?.coupons.remaining ?? 0}</div>
                             </div>
                         </div>
 

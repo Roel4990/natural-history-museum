@@ -3,10 +3,8 @@ import type { ApiResult } from './types';
 export type StatsResponse = {
     date: string;
     visits: number;
-    mapSearches: number | null;
     coupons: {
-        date: string;
-        issued: number;
+        issueCount: number;
         remaining: number;
         soldOut: boolean;
     };
@@ -17,25 +15,20 @@ export type StatsResponse = {
 export async function getStatsByDate(date: string): Promise<ApiResult<StatsResponse>> {
     const base = process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
     const url = `${base}/api/v1/admin/stats/daily?date=${encodeURIComponent(date)}`;
-
     try {
         const res = await fetch(url, { cache: 'no-store' });
+        console.log(res)
         if (!res.ok) {
             const text = await res.text().catch(() => '');
             return { success: false, data: null, error: text || 'Failed to fetch stats' };
         }
         const raw = await res.json();
-        const coupons = raw?.coupons ?? {};
+        console.log(raw)
+        const coupons = raw?.data.coupons ?? {};
         const data: StatsResponse = {
-            date: String(raw?.date ?? date),
-            visits: Number(raw?.visits ?? 0),
-            mapSearches: raw?.mapSearches == null ? null : Number(raw?.mapSearches),
-            coupons: {
-                date: String(coupons?.date ?? raw?.date ?? date),
-                issued: Number(coupons?.issued ?? 0),
-                remaining: Number(coupons?.remaining ?? 0),
-                soldOut: Boolean(coupons?.soldOut ?? false),
-            },
+            date: String(raw?.data.date ?? date),
+            visits: Number(raw?.data.visits ?? 0),
+            coupons: coupons,
         };
         return { success: true, data, error: null };
     } catch (e) {

@@ -107,13 +107,6 @@ export default function PrizePage() {
                         >
                             이미지 저장
                         </button>
-                        
-                        <button
-                            onClick={() => router.push("/")}
-                            className="px-6 py-3 bg-gray-700 text-white rounded-lg shadow-lg hover:bg-gray-800 transition-colors font-semibold"
-                        >
-                            홈으로
-                        </button>
                     </div>
                 </div>
             )}

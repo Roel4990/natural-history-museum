@@ -92,16 +92,6 @@ export default function Quiz1Page() {
                     ))}
                 </div>
 
-                {/* 뒤로가기 버튼 */}
-                <div className="mt-8 text-center">
-                    <button
-                        className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-6 rounded-lg"
-                        onClick={() => window.history.back()}
-                    >
-                        지도로 돌아가기
-                    </button>
-                </div>
-
                 {/* 중앙 모달 이미지 */}
                 {selectedModal && (
                     <div

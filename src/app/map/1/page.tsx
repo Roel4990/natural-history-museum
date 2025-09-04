@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import {useRef, useState} from "react";
+import {useRouter} from "next/navigation";
 
 type Area = {
     id: number;
@@ -18,19 +18,37 @@ const areas: Area[] = [
 
 export default function MapPage() {
     const [selectedModal, setSelectedModal] = useState<"success" | "fail" | null>(null);
+    const [showDescription, setShowDescription] = useState<boolean>(true);
+    const [showZoomHint, setShowZoomHint] = useState<boolean>(false);
     const router = useRouter();
     const imgRef = useRef<HTMLImageElement | null>(null);
 
     // 지도 전체 클릭
     const handleMapClick = () => {
-        // 기본적으로 실패 모달
+        if (showDescription) {
+            setShowDescription(false);
+            setShowZoomHint(true);
+            return;
+        }
+        if (showZoomHint) {
+            setShowZoomHint(false);
+            return;
+        }
         setSelectedModal("fail");
     };
 
     const handleAreaClick = (e: React.MouseEvent, area: Area) => {
         e.stopPropagation();
+        if (showDescription) {
+            setShowDescription(false);
+            setShowZoomHint(true);
+            return;
+        }
+        if (showZoomHint) {
+            setShowZoomHint(false);
+            return;
+        }
         setSelectedModal("success");
-        // 필요하면 여기서 router.push(area.quizUrl) 등도 가능
     };
 
     const handleModalClick = (e: React.MouseEvent) => {
@@ -58,6 +76,26 @@ export default function MapPage() {
                     alt="map"
                     className="w-full h-auto"
                 />
+
+                {/* 최초 진입 설명 오버레이 */}
+                {showDescription && (
+                    <div className="absolute inset-0 z-40 flex items-start justify-center mt-47">
+                        <img
+                            src="/map_description.png"
+                            alt="지도 이용 안내"
+                            className="w-[80%] max-w-[700px] h-auto drop-shadow-xl"
+                        />
+                    </div>
+                )}
+
+                {/* 두 번째 안내: 좌상단 텍스트 힌트 */}
+                {showZoomHint && !showDescription && (
+                    <div className="absolute z-30 top-30 left-4">
+                        <div className="bg-white/90 rounded-xl px-4 py-3 whitespace-pre-line text-black font-extrabold text-3xl leading-relaxed">
+                            {`지도를\n확대하여\n찾아\n보세요`}
+                        </div>
+                    </div>
+                )}
 
                 {areas.map((area) => (
                     <div

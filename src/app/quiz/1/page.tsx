@@ -39,9 +39,9 @@ export default function Quiz1Page() {
     };
     const modalImageSrc =
         selectedModal === "success"
-            ? "/map_success_modal.png"
+            ? "/quiz_1_success_modal.png"
             : selectedModal === "fail"
-                ? "/map_fail_modal.png"
+                ? "/quiz_1_fail_modal.png"
                 : "";
     return (
         <div className="min-h-screen bg-white py-8">

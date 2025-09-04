@@ -78,11 +78,6 @@ export default function AdminPage() {
                                 <div className="text-2xl font-bold text-gray-900">{data?.coupons.issueCount ?? 0} / {data?.coupons.remaining ?? 0}</div>
                             </div>
                         </div>
-
-                        {/* 품절 여부 */}
-                        <div className={`rounded-xl p-4 border ${data?.coupons.soldOut ? 'bg-red-50 border-red-200 text-red-700' : 'bg-green-50 border-green-200 text-green-700'}`}>
-                            {data?.coupons.soldOut ? '품절되었습니다.' : '발행 가능 상태입니다.'}
-                        </div>
                     </div>
                 )}
             </div>

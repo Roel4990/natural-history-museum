@@ -3,11 +3,13 @@
 import {useState} from "react";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
+import { useIssueCoupon } from "@/hooks/useIssueCoupon";
 
 export default function Quiz1Page() {
     const [selectedModal, setSelectedModal] = useState<"success" | "fail" | null>(null);
     const [isGeneratingCode, setIsGeneratingCode] = useState(false);
     const router = useRouter();
+    const { mutate: issueCoupon } = useIssueCoupon();
     
     const handleAnswerSelect = (answerNumber: number) => {
         setSelectedModal(answerNumber === 3 ? "success" : "fail" )
@@ -19,22 +21,36 @@ export default function Quiz1Page() {
         
         if(selectedModal === "success") {
             setIsGeneratingCode(true);
-            
-            // 프론트엔드에서 상품 코드 생성
-            const now = new Date();
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-            const prizeCode = `${month}.${day}.${randomNum}`;
-            
-            // localStorage에 상품 코드 저장
-            localStorage.setItem('prizeCode', prizeCode);
-            
-            // 잠시 로딩 효과를 위해 딜레이
-            setTimeout(() => {
-                router.push('/prize');
-                setIsGeneratingCode(false);
-            }, 1000);
+
+            localStorage.setItem('prizeCode', "09.04.020");
+            router.push('/prize');
+            // 쿠폰 발급 API 호출 (성공 시 응답 저장 후 이동)
+            // issueCoupon(undefined, {
+            //     onSuccess: (res) => {
+            //         if (res?.success && res.data) {
+            //             const { date, issued } = res.data;
+            //             const [, mmRaw, ddRaw] = (date || '').split('-');
+            //             const mm = (mmRaw || '').padStart(2, '0');
+            //             const dd = (ddRaw || '').padStart(2, '0');
+            //             const seq = String(issued ?? 0).padStart(3, '0');
+            //             const code = `${mm}.${dd}.${seq}`;
+            //             console.log(code)
+            //             try {
+            //                 localStorage.setItem('prizeCode', code);
+            //                 localStorage.setItem('couponMeta', JSON.stringify(res.data));
+            //             } catch {}
+            //             router.push('/prize');
+            //         } else {
+            //             alert("쿠폰 발급 실패");
+            //         }
+            //     },
+            //     onError: () => {
+            //         alert("쿠폰 발급에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+            //     },
+            //     onSettled: () => {
+            //         setIsGeneratingCode(false);
+            //     }
+            // });
         }
     };
     const modalImageSrc =

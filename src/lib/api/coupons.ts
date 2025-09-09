@@ -10,9 +10,13 @@ import type { ApiResult } from './types';
 export async function issueCouponRequest(): Promise<ApiResult<IssueCouponResponse>> {
     const base = process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
     const url = `${base}/api/v1/coupons/issue`;
-    console.log(url)
+    console.log(url);
+
     try {
-        const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
         console.log("res:", res);
 
         if (!res.ok) {
@@ -21,12 +25,11 @@ export async function issueCouponRequest(): Promise<ApiResult<IssueCouponRespons
         }
 
         const json = await res.json();
-        console.log(json)
-        return json
+        console.log(json);
+        return json;
     } catch (err) {
         console.error("fetch error:", err);
+        return { success: false, data: null, error: String(err) || '네트워크 오류' };
     }
-
 }
-
 

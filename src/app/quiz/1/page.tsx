@@ -22,35 +22,33 @@ export default function Quiz1Page() {
         if(selectedModal === "success") {
             setIsGeneratingCode(true);
 
-            localStorage.setItem('prizeCode', "09.04.020");
-            router.push('/prize');
             // 쿠폰 발급 API 호출 (성공 시 응답 저장 후 이동)
-            // issueCoupon(undefined, {
-            //     onSuccess: (res) => {
-            //         if (res?.success && res.data) {
-            //             const { date, issued } = res.data;
-            //             const [, mmRaw, ddRaw] = (date || '').split('-');
-            //             const mm = (mmRaw || '').padStart(2, '0');
-            //             const dd = (ddRaw || '').padStart(2, '0');
-            //             const seq = String(issued ?? 0).padStart(3, '0');
-            //             const code = `${mm}.${dd}.${seq}`;
-            //             console.log(code)
-            //             try {
-            //                 localStorage.setItem('prizeCode', code);
-            //                 localStorage.setItem('couponMeta', JSON.stringify(res.data));
-            //             } catch {}
-            //             router.push('/prize');
-            //         } else {
-            //             alert("쿠폰 발급 실패");
-            //         }
-            //     },
-            //     onError: () => {
-            //         alert("쿠폰 발급에 실패하였습니다. 잠시 후 다시 시도해주세요.");
-            //     },
-            //     onSettled: () => {
-            //         setIsGeneratingCode(false);
-            //     }
-            // });
+            issueCoupon(undefined, {
+                onSuccess: (res) => {
+                    if (res?.success && res.data) {
+                        const { date, issued } = res.data;
+                        const [, mmRaw, ddRaw] = (date || '').split('-');
+                        const mm = (mmRaw || '').padStart(2, '0');
+                        const dd = (ddRaw || '').padStart(2, '0');
+                        const seq = String(issued ?? 0).padStart(3, '0');
+                        const code = `${mm}.${dd}.${seq}`;
+                        console.log(code)
+                        try {
+                            localStorage.setItem('prizeCode', code);
+                            localStorage.setItem('couponMeta', JSON.stringify(res.data));
+                        } catch {}
+                        router.push('/prize');
+                    } else {
+                        alert("쿠폰 발급 실패");
+                    }
+                },
+                onError: () => {
+                    alert("쿠폰 발급에 실패하였습니다. 잠시 후 다시 시도해주세요.");
+                },
+                onSettled: () => {
+                    setIsGeneratingCode(false);
+                }
+            });
         }
     };
     const modalImageSrc =

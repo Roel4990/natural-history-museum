@@ -15,14 +15,13 @@ export async function issueCouponRequest(): Promise<ApiResult<IssueCouponRespons
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
     });
-
+    console.log(res)
     if (!res.ok) {
         const text = await res.text().catch(() => '');
         return { success: false, data: null, error: text || '쿠폰 발급 요청 실패' };
     }
-
     const json = await res.json();
-
+    console.log(json)
     return json
 }
 

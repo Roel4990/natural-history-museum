@@ -19,6 +19,8 @@ async function fetchStats(date: string): Promise<StatsResponse> {
     try {
         const res: ApiResult<StatsResponse> = await getStatsByDate(date);
         if (!res.success || !res.data) throw new Error(res.error || 'fail');
+        console.log("data:", res.data);
+        console.log("hourly:", res.data?.hourly);
         return res.data;
     } catch {
         return {

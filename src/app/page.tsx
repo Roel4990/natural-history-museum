@@ -1,9 +1,23 @@
 'use client';
 
+import { useEffect } from "react";
 import {useRouter} from "next/navigation";
+import { postVisitMetricVerbose } from "@/lib/api/metrics";
 
 export default function Home() {
     const router = useRouter();
+    useEffect(() => {
+        let cancelled = false;
+        (async () => {
+            const ok = await postVisitMetricVerbose();
+            if (!cancelled) {
+                console.log('[visit metric] forced attempt:', ok ? 'success' : 'fail');
+            }
+        })();
+        return () => {
+            cancelled = true;
+        };
+    }, []);
     return (
         <main className="flex justify-center items-center min-h-screen bg-white">
             <div

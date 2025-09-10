@@ -2,17 +2,25 @@
 
 import {useState} from "react";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import { useIssueCoupon } from "@/hooks/useIssueCoupon";
 
-export default function Quiz1Page() {
+export default function QuizPage() {
     const [selectedModal, setSelectedModal] = useState<"success" | "fail" | null>(null);
     const [isGeneratingCode, setIsGeneratingCode] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
     const { mutate: issueCoupon } = useIssueCoupon();
-    
+
+    // 유효한 퀴즈 번호 범위 설정
+    const rawQuizNum = Number(searchParams.get("quizNum"));
+    const quizNum = (!rawQuizNum || rawQuizNum < 1) ? 1 : rawQuizNum > 4 ? 4 : rawQuizNum;
+
     const handleAnswerSelect = (answerNumber: number) => {
-        setSelectedModal(answerNumber === 3 ? "success" : "fail" )
+        if (quizNum == 1) setSelectedModal(answerNumber === 3 ? "success" : "fail" )
+        else if (quizNum == 2) setSelectedModal(answerNumber === 4 ? "success" : "fail")
+        else if (quizNum == 3) setSelectedModal(answerNumber === 2 ? "success" : "fail")
+        else if (quizNum == 4) setSelectedModal(answerNumber === 1 ? "success" : "fail")
     };
     
     const handleModalClick = async (e: React.MouseEvent) => {
@@ -63,7 +71,7 @@ export default function Quiz1Page() {
                 {/* 문제 이미지 */}
                 <div className="mb-8">
                     <Image
-                        src="/quiz_1_question.png"
+                        src={`/quiz_${quizNum}/quiz_${quizNum}_question.png`}
                         alt="Quiz Question"
                         width={800}
                         height={400}
@@ -80,7 +88,7 @@ export default function Quiz1Page() {
                             onClick={() => handleAnswerSelect(answerNumber)}
                         >
                             <Image
-                                src={`/quiz_1_answer_${answerNumber}.png`}
+                                src={`/quiz_${quizNum}/quiz_${quizNum}_answer_${answerNumber}.png`}
                                 alt={`Answer ${answerNumber}`}
                                 width={400}
                                 height={300}

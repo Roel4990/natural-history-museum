@@ -6,19 +6,16 @@ export async function getStatsByDate(date: string): Promise<ApiResult<StatsRespo
     const url = `${base}/api/v1/admin/stats/daily?date=${encodeURIComponent(date)}`;
     try {
         const res = await fetch(url, { cache: 'no-store' });
-        console.log(res)
         if (!res.ok) {
             const text = await res.text().catch(() => '');
             return { success: false, data: null, error: text || 'Failed to fetch stats' };
         }
         const raw = await res.json();
-        console.log(raw)
-        const coupons = raw?.data.coupons ?? {};
         const data: StatsResponse = {
             date: String(raw?.data.date ?? date),
             visits: Number(raw?.data.visits ?? 0),
-            hourly: raw?.data.hourly,
-            coupons: coupons,
+            hourly: raw?.data.hourly ?? [],
+            coupons: raw?.data.coupons ?? {},
         };
         return { success: true, data, error: null };
     } catch (e) {

@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getStatsByDate } from '@/lib/api/stats';
 import type { ApiResult } from '@/lib/api/types';
 import {StatsResponse} from "@/app/type";
+import {exportToExcel} from "@/app/admin/exportToExcel";
 
 
 function formatTodayISO(): string {
@@ -19,8 +20,6 @@ async function fetchStats(date: string): Promise<StatsResponse> {
     try {
         const res: ApiResult<StatsResponse> = await getStatsByDate(date);
         if (!res.success || !res.data) throw new Error(res.error || 'fail');
-        console.log("data:", res.data);
-        console.log("hourly:", res.data?.hourly);
         return res.data;
     } catch {
         return {
@@ -48,8 +47,15 @@ export default function AdminPage() {
     return (
         <div className="min-h-screen bg-white">
             <div className="mx-auto w-full max-w-3xl px-4 py-6">
-                <h1 className="text-2xl font-bold text-gray-900 mb-4">관리자 통계</h1>
-
+                <div className="flex items-center justify-between mb-4">
+                    <h1 className="text-2xl font-bold text-gray-900">관리자 통계</h1>
+                    <button
+                        onClick={() => exportToExcel(data!)}
+                        className="px-4 py-2 bg-black hover:bg-gray-800 text-white rounded-md text-sm font-medium"
+                    >
+                        엑셀 다운로드
+                    </button>
+                </div>
                 {/* Date picker */}
                 <div className="flex items-center gap-3 mb-6">
                     <input
@@ -80,14 +86,15 @@ export default function AdminPage() {
                             </div>
                             <div className="bg-white rounded-xl border p-4 shadow-sm">
                                 <div className="text-sm text-gray-500">발행/잔여</div>
-                                <div className="text-2xl font-bold text-gray-900">{data?.coupons.issueCount ?? 0} / {data?.coupons.remaining ?? 0}</div>
+                                <div
+                                    className="text-2xl font-bold text-gray-900">{data?.coupons.issueCount ?? 0} / {data?.coupons.remaining ?? 0}</div>
                             </div>
                         </div>
                         {/* 시간대별 방문자 수 */}
                         <div>
                             <h3 className="text-md font-semibold text-gray-700 mb-2">시간대별 방문자 수</h3>
                             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                                {data?.hourly?.map(({ hour, visits }) => {
+                                {data?.hourly?.map(({hour, visits}) => {
                                     const startHour = String(hour).padStart(2, "0");
                                     const endHour = String(hour + 1).padStart(2, "0");
                                     return (

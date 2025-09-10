@@ -2,8 +2,10 @@
 
 import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getStatsByDate, StatsResponse } from '@/lib/api/stats';
+import { getStatsByDate } from '@/lib/api/stats';
 import type { ApiResult } from '@/lib/api/types';
+import {StatsResponse} from "@/app/type";
+
 
 function formatTodayISO(): string {
     const d = new Date();

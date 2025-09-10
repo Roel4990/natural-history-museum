@@ -72,7 +72,7 @@ export default function MapPage() {
             >
                 <img
                     ref={imgRef as React.RefObject<HTMLImageElement>}
-                    src="/natural_history_hall_map.jpg"
+                    src="/map_1/map_1.jpg"
                     alt="map"
                     className="w-full h-auto"
                 />
@@ -81,7 +81,7 @@ export default function MapPage() {
                 {showDescription && (
                     <div className="absolute inset-0 z-40 flex items-start justify-center mt-47">
                         <img
-                            src="/map_description.png"
+                            src="/map_1/map_1_description.png"
                             alt="지도 이용 안내"
                             className="w-[80%] max-w-[700px] h-auto drop-shadow-xl"
                         />

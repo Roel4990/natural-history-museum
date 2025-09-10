@@ -11,7 +11,7 @@ export default function Home() {
         (async () => {
             const ok = await postVisitMetricVerbose();
             if (!cancelled) {
-                console.log('[visit metric] forced attempt:', ok ? 'success' : 'fail');
+                console.log('[visit]:', ok ? 'success' : 'fail');
             }
         })();
         return () => {

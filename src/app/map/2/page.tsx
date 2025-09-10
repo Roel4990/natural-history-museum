@@ -5,7 +5,7 @@ import {useRouter} from "next/navigation";
 import {Area} from "@/app/type";
 
 const areas: Area[] = [
-    { id: 1, topPercent: 85, leftPercent: 60, widthPercent: 20, heightPercent: 10 }
+    { id: 1, topPercent: 55, leftPercent: 60, widthPercent: 20, heightPercent: 10 }
 ];
 
 export default function MapPage() {
@@ -46,7 +46,7 @@ export default function MapPage() {
     const handleModalClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         setSelectedModal(null);
-        if(selectedModal === "success") router.push("/quiz?quizNum=1")
+        if(selectedModal === "success") router.push("/quiz?quizNum=2")
     };
 
     const modalImageSrc =
@@ -64,7 +64,7 @@ export default function MapPage() {
             >
                 <img
                     ref={imgRef as React.RefObject<HTMLImageElement>}
-                    src="/map_1/map_1.jpg"
+                    src="/map_2/map_2.jpg"
                     alt="map"
                     className="w-full h-auto"
                 />
@@ -73,7 +73,7 @@ export default function MapPage() {
                 {showDescription && (
                     <div className="absolute inset-0 z-40 flex items-start justify-center mt-47">
                         <img
-                            src="/map_1/map_1_description.png"
+                            src="/map_2/map_2_description.png"
                             alt="지도 이용 안내"
                             className="w-[80%] max-w-[700px] h-auto drop-shadow-xl"
                         />
@@ -82,7 +82,7 @@ export default function MapPage() {
 
                 {/* 두 번째 안내: 좌상단 텍스트 힌트 */}
                 {showZoomHint && !showDescription && (
-                    <div className="absolute z-30 top-30 left-4">
+                    <div className="absolute z-30 top-130 left-4">
                         <div className="bg-white/90 rounded-xl px-4 py-3 whitespace-pre-line text-black font-extrabold text-3xl leading-relaxed">
                             {`지도를\n확대하여\n찾아\n보세요`}
                         </div>
@@ -107,7 +107,7 @@ export default function MapPage() {
                 {selectedModal && (
                     <div
                         onClick={handleModalClick}
-                        className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 animate-fade-in"
+                        className="fixed inset-0 flex items-center justify-center bg-black/40 z-50 animate-fade-in "
                     >
                         <img
                             src={modalImageSrc}

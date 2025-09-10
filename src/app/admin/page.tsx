@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getStatsByDate, type StatsResponse } from '@/lib/api/stats';
+import { getStatsByDate, StatsResponse } from '@/lib/api/stats';
 import type { ApiResult } from '@/lib/api/types';
 
 function formatTodayISO(): string {

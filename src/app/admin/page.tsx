@@ -78,6 +78,25 @@ export default function AdminPage() {
                                 <div className="text-2xl font-bold text-gray-900">{data?.coupons.issueCount ?? 0} / {data?.coupons.remaining ?? 0}</div>
                             </div>
                         </div>
+                        {/* 시간대별 방문자 수 */}
+                        <div>
+                            <h3 className="text-md font-semibold text-gray-700 mb-2">시간대별 방문자 수</h3>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                {data?.hourly?.map(({ hour, visits }) => {
+                                    const startHour = String(hour).padStart(2, "0");
+                                    const endHour = String(hour + 1).padStart(2, "0");
+                                    return (
+                                        <div
+                                            key={hour}
+                                            className="bg-white rounded-xl border p-4 shadow-sm flex flex-col items-center"
+                                        >
+                                            <div className="text-sm text-gray-500">{startHour}:00 ~ {endHour}:00</div>
+                                            <div className="text-xl font-bold text-gray-900">{visits}명</div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>

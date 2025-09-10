@@ -25,7 +25,7 @@ export default function Home() {
                 onClick={() => router.push('/map/1')}
             >
                 <img
-                    src="/start_image.jpg"
+                    src="/start_image.png"
                     alt="시작 이미지"
                     className="w-full h-auto object-contain"
                 />

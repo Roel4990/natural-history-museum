@@ -1,16 +1,5 @@
 import type { ApiResult } from './types';
-
-export type StatsResponse = {
-    date: string;
-    visits: number;
-    coupons: {
-        issueCount: number;
-        remaining: number;
-        soldOut: boolean;
-    };
-};
-
-
+import {StatsResponse} from "@/app/type";
 
 export async function getStatsByDate(date: string): Promise<ApiResult<StatsResponse>> {
     const base = process.env.NEXT_PUBLIC_API_BASE_URL ?? '';
@@ -28,6 +17,7 @@ export async function getStatsByDate(date: string): Promise<ApiResult<StatsRespo
         const data: StatsResponse = {
             date: String(raw?.data.date ?? date),
             visits: Number(raw?.data.visits ?? 0),
+            hourly: [],
             coupons: coupons,
         };
         return { success: true, data, error: null };

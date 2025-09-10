@@ -5,3 +5,18 @@ export type Area = {
     widthPercent: number;
     heightPercent: number;
 };
+
+
+export type StatsResponse = {
+    date: string;
+    visits: number;
+    hourly: {
+        hour: number;
+        visits: number;
+    }[];
+    coupons: {
+        issueCount: number;
+        remaining: number;
+        soldOut: boolean;
+    };
+};

@@ -19,19 +19,17 @@ export default function Home() {
         };
     }, []);
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <main className="flex justify-center items-center min-h-screen bg-white">
-                <div
-                    className="w-full max-w-[480px] mx-auto"
-                    onClick={() => router.push('/map/1')}
-                >
-                    <img
-                        src="/start_image.jpg"
-                        alt="시작 이미지"
-                        className="w-full h-auto object-contain"
-                    />
-                </div>
-            </main>
-        </Suspense>
+        <main className="flex justify-center items-center min-h-screen bg-white">
+            <div
+                className="w-full max-w-[480px] mx-auto"
+                onClick={() => router.push('/map/1')}
+            >
+                <img
+                    src="/start_image.jpg"
+                    alt="시작 이미지"
+                    className="w-full h-auto object-contain"
+                />
+            </div>
+        </main>
     );
 }

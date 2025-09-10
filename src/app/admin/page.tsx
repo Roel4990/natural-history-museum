@@ -24,6 +24,7 @@ async function fetchStats(date: string): Promise<StatsResponse> {
         return {
             date,
             visits: 0,
+            hourly: [],
             coupons: {
                 issueCount: 0,
                 remaining: 200,

@@ -59,7 +59,7 @@ export default function MapPage() {
     return (
         <main className="flex justify-center items-center min-h-screen bg-white">
             <div
-                className="relative w-full max-w-[800px] bg-black"
+                className="relative w-full max-w-[480px]"
                 onClick={handleMapClick}
             >
                 <img
@@ -82,9 +82,16 @@ export default function MapPage() {
 
                 {/* 두 번째 안내: 좌상단 텍스트 힌트 */}
                 {showZoomHint && !showDescription && (
-                    <div className="absolute z-30 top-150 left-4">
-                        <div className="bg-white/90 rounded-xl px-4 py-3 whitespace-pre-line text-black font-extrabold text-3xl leading-relaxed">
-                            {`지도를\n확대하여\n찾아\n보세요`}
+                    <div
+                        className="absolute z-30"
+                        style={{
+                            top: "9.7%",
+                            right: "9%",
+                        }}
+                    >
+                        <div
+                            className="rounded-xl px-4 py-3 whitespace-pre-line text-black font-extrabold leading-relaxed text-base">
+                            지도를 움직여서 숨겨진 위치를 찾아보세요!
                         </div>
                     </div>
                 )}

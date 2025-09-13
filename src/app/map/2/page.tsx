@@ -66,7 +66,7 @@ export default function MapPage() {
                     ref={imgRef as React.RefObject<HTMLImageElement>}
                     src="/map_2/map_2.jpg"
                     alt="map"
-                    className="w-full mx-auto max-w-[480px]"
+                    className="w-full mx-auto"
                 />
 
                 {/* 최초 진입 설명 오버레이 */}

@@ -7,7 +7,6 @@ export async function postVisitMetricVerbose(): Promise<boolean> {
             headers: { 'Content-Type': 'application/json' },
             keepalive: true,
         });
-        console.log(res);
         return res.ok;
     } catch {
         return false;

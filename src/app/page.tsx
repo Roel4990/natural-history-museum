@@ -11,8 +11,8 @@ function getTargetMapNumber(): number {
     const nov1 = new Date(2025, 10, 1);
     const dec6 = new Date(2025, 11, 6);
 
-    if (today < oct4) return 1;
-    if (today < nov1) return 2;
+    if (today < oct4) return 2;
+    if (today < nov1) return 1;
     if (today < dec6) return 3;
     return 4;
 }

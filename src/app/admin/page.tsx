@@ -12,7 +12,7 @@ function formatTodayISO(): string {
     const now = new Date();
 
     // UTC 시간에서 +9시간(KST) 보정
-    const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+    const kst = new Date(now.getTime());
 
     const yyyy = kst.getFullYear();
     const mm = String(kst.getMonth() + 1).padStart(2, '0');
@@ -66,7 +66,6 @@ export default function AdminPage() {
                     <input
                         type="date"
                         value={selectedDate}
-                        max={formatTodayISO()}
                         onChange={(e) => setSelectedDate(e.target.value)}
                         className="border border-gray-300 rounded-lg px-3 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full sm:w-auto"
                     />

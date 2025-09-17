@@ -6,20 +6,8 @@ import { getStatsByDate } from '@/lib/api/stats';
 import type { ApiResult } from '@/lib/api/types';
 import {StatsResponse} from "@/app/type";
 import {exportToExcel} from "@/app/admin/exportToExcel";
+import {formatTodayISO} from "@/uils/date";
 
-
-function formatTodayISO(): string {
-    const now = new Date();
-
-    // UTC 시간에서 +9시간(KST) 보정
-    const kst = new Date(now.getTime());
-
-    const yyyy = kst.getFullYear();
-    const mm = String(kst.getMonth() + 1).padStart(2, '0');
-    const dd = String(kst.getDate()).padStart(2, '0');
-
-    return `${yyyy}-${mm}-${dd}`;
-}
 
 async function fetchStats(date: string): Promise<StatsResponse> {
     try {

@@ -11,20 +11,26 @@ export function exportToExcel(data: StatsResponse) {
 
     const summary = [
         ['날짜', data.date],
-        ['총 방문 수 (ALL)', data.visits.ALL],
-        ['A구역 방문 수', data.visits.A],
-        ['B구역 방문 수', data.visits.B],
-        ['C구역 방문 수', data.visits.C],
-        ['D구역 방문 수', data.visits.D],
+        ['총 방문 수 (전체)', data.visits.ALL],
+        ['자연사관 방문 수', data.visits.A],
+        ['첨단기술관 방문 수', data.visits.B],
+        ['과학탐구관 방문 수', data.visits.C],
+        ['한국과학문명관 방문 수', data.visits.D],
         ['쿠폰 발행 수', data.coupons.issueCount],
-        ['쿠폰 잔여 수', data.coupons.remaining],
-        ['쿠폰 소진 여부', data.coupons.soldOut ? '소진됨' : '남아있음'],
+        ['쿠폰 잔여 수', data.coupons.remaining]
     ];
     const summarySheet = XLSX.utils.aoa_to_sheet(summary);
     XLSX.utils.book_append_sheet(workbook, summarySheet, '요약');
 
     // 2. 시간대별 방문자 시트 (구역별로 생성)
     const zones: Zone[] = ['ALL', 'A', 'B', 'C', 'D'];
+    const zoneNameMapping: Record<Zone, string> = {
+        ALL: '전체',
+        A: '자연사관',
+        B: '첨단기술관',
+        C: '과학탐구관',
+        D: '한국과학문명관',
+    };
     zones.forEach(zone => {
         const hourlyData = data.hourly[zone] || [];
         const sheetData = [
@@ -36,7 +42,7 @@ export function exportToExcel(data: StatsResponse) {
             }),
         ];
         const hourlySheet = XLSX.utils.aoa_to_sheet(sheetData);
-        XLSX.utils.book_append_sheet(workbook, hourlySheet, `시간대별 방문자 (${zone})`);
+        XLSX.utils.book_append_sheet(workbook, hourlySheet, `시간대별 방문자 (${zoneNameMapping[zone]})`);
     });
 
 

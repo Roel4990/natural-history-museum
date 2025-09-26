@@ -17,10 +17,24 @@ export default function QuizContent() {
     // 쿠폰 발급 처리 함수
     const handleCouponIssue = (isSuccess: "success" | "fail") => {
         setIsGeneratingCode(true);
-        if (localStorage.getItem('prizeCode')) {
-            setIsGeneratingCode(false);
-            return setSelectedModal(isSuccess);
+
+        const existingCode = localStorage.getItem('prizeCode');
+        if (existingCode) {
+            const codeDateStr = existingCode.substring(0, 5); // "MM.DD" 추출
+
+            const today = new Date();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const todayDateStr = `${mm}.${dd}`;
+
+            if (codeDateStr === todayDateStr) {
+                // 날짜가 오늘과 일치하면 기존 코드를 사용
+                setIsGeneratingCode(false);
+                return setSelectedModal(isSuccess);
+            }
         }
+
+        // 기존 코드가 없거나 날짜가 다르면 새로 발급
         issueCoupon(undefined, {
             onSuccess: (res) => {
                 if (res?.success && res.data) {

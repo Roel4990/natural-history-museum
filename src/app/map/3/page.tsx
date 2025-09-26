@@ -71,12 +71,19 @@ export default function MapPage() {
 
                 {/* 최초 진입 설명 오버레이 */}
                 {showDescription && (
-                    <div className="absolute inset-0 z-40 flex items-start justify-center mt-47">
-                        <img
-                            src="/map_3/map_3_description.png"
-                            alt="지도 이용 안내"
-                            className="w-[80%] max-w-[700px] h-auto drop-shadow-xl"
-                        />
+                    <div className="fixed inset-0 z-40 bg-black/60 flex items-center justify-center p-4">
+                        <div className="relative w-full max-w-[480px] flex flex-col items-center gap-4">
+                            <img
+                                src="/map_3/map_3_description.png"
+                                alt="지도 이용 안내"
+                                className="w-[90%] max-w-[700px] h-auto drop-shadow-xl"
+                            />
+                            <img
+                                src="/map_3/map_3_pic.jpg"
+                                alt="지도 안내 이미지"
+                                className="w-[85%] max-w-[700px] h-auto drop-shadow-xl"
+                            />
+                        </div>
                     </div>
                 )}
 

@@ -11,28 +11,39 @@ function PageContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const selectedDate = formatTodayISO();
+    const sortNum = searchParams.get('sortNum');
+    const validSortNums = ['1', '2', '3', '4'];
+    const targetMap = sortNum && validSortNums.includes(sortNum) ? sortNum : '1';
 
     useEffect(() => {
+        const hallMapping: { [key: string]: string } = {
+            '1': 'A',
+            '2': 'B',
+            '3': 'C',
+            '4': 'D',
+        };
+        const hall = hallMapping[targetMap];
+
+        if (!hall) return;
+
         let cancelled = false;
         (async () => {
-            const ok = await postVisitMetricVerbose();
+            const ok = await postVisitMetricVerbose({ hall });
             if (!cancelled) {
-                console.log('[visit]:', ok ? 'success' : 'fail');
+                console.log(`[visit: ${hall}]:`, ok ? 'success' : 'fail');
             }
         })();
         return () => {
             cancelled = true;
         };
-    }, []);
+    }, [targetMap]);
 
     const { data, isLoading } = useQuery({
         queryKey: ['stats', selectedDate],
         queryFn: () => getStatsByDate(selectedDate)
     });
 
-    const sortNum = searchParams.get('sortNum');
-    const validSortNums = ['1', '2', '3', '4'];
-    const targetMap = sortNum && validSortNums.includes(sortNum) ? sortNum : '1';
+
 
     const isSoldOut = data?.data?.coupons?.soldOut ?? false;
 

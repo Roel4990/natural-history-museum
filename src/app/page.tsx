@@ -1,34 +1,17 @@
 'use client';
 
-import React, {Suspense, useEffect, useState} from "react";
-import {useRouter} from "next/navigation";
+import React, { Suspense, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { postVisitMetricVerbose } from "@/lib/api/metrics";
-import {useQuery} from "@tanstack/react-query";
-import {formatTodayISO} from "@/uils/date";
-import {getStatsByDate} from "@/lib/api/stats";
+import { useQuery } from "@tanstack/react-query";
+import { formatTodayISO } from "@/uils/date";
+import { getStatsByDate } from "@/lib/api/stats";
 
-function getTargetMapNumber(): number {
-    const today = getKSTToday();
-    console.log(today)
-    const oct4 = new Date(2025, 9, 4);
-    const nov1 = new Date(2025, 10, 1);
-    const dec6 = new Date(2025, 11, 6);
-
-    if (today < oct4) return 2;
-    if (today < nov1) return 1;
-    if (today < dec6) return 3;
-    return 4;
-}
-
-function getKSTToday(): Date {
-    const now = new Date();
-    const kst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
-    return new Date(kst.getFullYear(), kst.getMonth(), kst.getDate()); // 시간 제거
-}
-
-export default function Home() {
+function PageContent() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const selectedDate = formatTodayISO();
+
     useEffect(() => {
         let cancelled = false;
         (async () => {
@@ -41,14 +24,16 @@ export default function Home() {
             cancelled = true;
         };
     }, []);
-    const {
-        data,
-        isLoading,
-        isError
-    } = useQuery({
+
+    const { data, isLoading } = useQuery({
         queryKey: ['stats', selectedDate],
         queryFn: () => getStatsByDate(selectedDate)
     });
+
+    const sortNum = searchParams.get('sortNum');
+    const validSortNums = ['1', '2', '3', '4'];
+    const targetMap = sortNum && validSortNums.includes(sortNum) ? sortNum : '1';
+
     const isSoldOut = data?.data?.coupons?.soldOut ?? false;
 
     if (isLoading) {
@@ -63,14 +48,26 @@ export default function Home() {
         <main className="flex justify-center items-center min-h-screen bg-white">
             <div
                 className="w-full max-w-[480px] mx-auto"
-                onClick={() => router.push(`/map/${getTargetMapNumber()}`)}
+                onClick={() => router.push(`/map/${targetMap}`)}
             >
                 <img
-                    src={isSoldOut ? "/start_image_end.jpg" : "/start_image.png"}
+                    src={isSoldOut ? `/map_${targetMap}/event_end_screen_${targetMap}.jpg` : `/map_${targetMap}/event_start_screen_${targetMap}.jpg`}
                     alt={isSoldOut ? "쿠폰 소진 이미지" : "시작 이미지"}
                     className="w-full h-auto object-contain"
                 />
             </div>
         </main>
+    );
+}
+
+export default function Home() {
+    return (
+        <Suspense fallback={
+            <main className="flex justify-center items-center min-h-screen bg-white">
+                <p className="text-gray-400">로딩 중...</p>
+            </main>
+        }>
+            <PageContent />
+        </Suspense>
     );
 }

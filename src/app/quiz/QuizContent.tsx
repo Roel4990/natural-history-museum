@@ -17,6 +17,10 @@ export default function QuizContent() {
     // 쿠폰 발급 처리 함수
     const handleCouponIssue = (isSuccess: "success" | "fail") => {
         setIsGeneratingCode(true);
+        if (localStorage.getItem('prizeCode')) {
+            setIsGeneratingCode(false);
+            return setSelectedModal(isSuccess);
+        }
         issueCoupon(undefined, {
             onSuccess: (res) => {
                 if (res?.success && res.data) {

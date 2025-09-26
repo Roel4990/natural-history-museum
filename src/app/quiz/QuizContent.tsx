@@ -2,6 +2,7 @@ import {useState} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import {useIssueCoupon} from "@/hooks/useIssueCoupon";
 import Image from "next/image";
+import {isEventDay} from "../../../lib/utils/isEventDay";
 
 export default function QuizContent() {
     const [selectedModal, setSelectedModal] = useState<"success" | "fail" | null>(null);
@@ -17,6 +18,13 @@ export default function QuizContent() {
     // 쿠폰 발급 처리 함수
     const handleCouponIssue = (isSuccess: "success" | "fail") => {
         setIsGeneratingCode(true);
+        // 경품 추천일인지 체크
+        if (isEventDay()) {
+            router.push('/prize');
+        } else {
+            alert("퀴즈를 풀어주셔서 감사합니다! 아쉽지만 오늘은 경품 추천일이 아니에요.");
+            router.push('/');
+        }
 
         const existingCode = localStorage.getItem('prizeCode');
         if (existingCode) {

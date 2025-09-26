@@ -22,7 +22,7 @@ export default function QuizContent() {
         if (isEventDay()) {
             router.push('/prize');
         } else {
-            alert("퀴즈를 풀어주셔서 감사합니다! 아쉽지만 오늘은 경품 추천일이 아니에요.");
+            alert("정답입니다! 아쉽지만 오늘은 경품 추천일이 아니에요.");
             router.push('/');
         }
 

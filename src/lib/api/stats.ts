@@ -13,9 +13,9 @@ export async function getStatsByDate(date: string): Promise<ApiResult<StatsRespo
         const raw = await res.json();
         const data: StatsResponse = {
             date: String(raw?.data.date ?? date),
-            visits: Number(raw?.data.visits ?? 0),
-            hourly: raw?.data.hourly ?? [],
-            coupons: raw?.data.coupons ?? {},
+            visits: raw?.data.visits ?? { ALL: 0, A: 0, B: 0, C: 0, D: 0 },
+            hourly: raw?.data.hourly ?? { ALL: [], A: [], B: [], C: [], D: [] },
+            coupons: raw?.data.coupons ?? { issueCount: 0, remaining: 0, soldOut: false },
         };
         return { success: true, data, error: null };
     } catch (e) {

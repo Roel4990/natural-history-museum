@@ -7,13 +7,15 @@ export type Area = {
 };
 
 
+export type Zone = 'ALL' | 'A' | 'B' | 'C' | 'D';
+
 export type StatsResponse = {
     date: string;
-    visits: number;
-    hourly: {
+    visits: Record<Zone, number>;
+    hourly: Record<Zone, {
         hour: number;
         visits: number;
-    }[];
+    }[]>;
     coupons: {
         issueCount: number;
         remaining: number;

@@ -14,16 +14,14 @@ export default function QuizContent() {
     // 유효한 퀴즈 번호 범위 설정
     const rawQuizNum = Number(searchParams.get("quizNum"));
     const quizNum = (!rawQuizNum || rawQuizNum < 1) ? 1 : rawQuizNum > 4 ? 4 : rawQuizNum;
-
+    const isTodayEventDay = isEventDay();
     // 쿠폰 발급 처리 함수
     const handleCouponIssue = (isSuccess: "success" | "fail") => {
         setIsGeneratingCode(true);
         // 경품 추천일인지 체크
-        if (isEventDay()) {
-            router.push('/prize');
-        } else {
+        if (!isTodayEventDay) {
             alert("정답입니다! 아쉽지만 오늘은 경품 추천일이 아니에요.");
-            router.push('/');
+            return router.push(`/?sortNum=${rawQuizNum}`);
         }
 
         const existingCode = localStorage.getItem('prizeCode');

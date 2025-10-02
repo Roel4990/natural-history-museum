@@ -6,6 +6,7 @@ import { postVisitMetricVerbose } from "@/lib/api/metrics";
 import { useQuery } from "@tanstack/react-query";
 import { formatTodayISO } from "@/uils/date";
 import { getStatsByDate } from "@/lib/api/stats";
+import { isEventDay } from "../../lib/utils/isEventDay";
 
 function PageContent() {
     const router = useRouter();
@@ -43,9 +44,28 @@ function PageContent() {
         queryFn: () => getStatsByDate(selectedDate)
     });
 
-
-
     const isSoldOut = data?.data?.coupons?.soldOut ?? false;
+    const isTodayEventDay = isEventDay();
+
+    const getImageSrc = () => {
+        if (!isTodayEventDay) {
+            return `/map_${targetMap}/event_weekdays_screen_${targetMap}.jpg`;
+        }
+        if (isSoldOut) {
+            return `/map_${targetMap}/event_end_screen_${targetMap}.jpg`;
+        }
+        return `/map_${targetMap}/event_start_screen_${targetMap}.jpg`;
+    };
+
+    const getImageAlt = () => {
+        if (!isTodayEventDay) {
+            return "평일 이벤트 이미지";
+        }
+        if (isSoldOut) {
+            return "쿠폰 소진 이미지";
+        }
+        return "시작 이미지";
+    };
 
     if (isLoading) {
         return (
@@ -62,8 +82,8 @@ function PageContent() {
                 onClick={() => router.push(`/map/${targetMap}`)}
             >
                 <img
-                    src={isSoldOut ? `/map_${targetMap}/event_end_screen_${targetMap}.jpg` : `/map_${targetMap}/event_start_screen_${targetMap}.jpg`}
-                    alt={isSoldOut ? "쿠폰 소진 이미지" : "시작 이미지"}
+                    src={getImageSrc()}
+                    alt={getImageAlt()}
                     className="w-full h-auto object-contain"
                 />
             </div>

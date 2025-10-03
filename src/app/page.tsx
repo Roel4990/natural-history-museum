@@ -39,18 +39,20 @@ function PageContent() {
         };
     }, [targetMap]);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            router.push(`/map/${targetMap}`);
-        }, 1500);
-
-        return () => clearTimeout(timer);
-    }, [router, targetMap]);
-
     const { data, isLoading } = useQuery({
         queryKey: ['stats', selectedDate],
         queryFn: () => getStatsByDate(selectedDate)
     });
+
+    useEffect(() => {
+        if (!isLoading) {
+            const timer = setTimeout(() => {
+                router.push(`/map/${targetMap}`);
+            }, 1500);
+
+            return () => clearTimeout(timer);
+        }
+    }, [isLoading, router, targetMap]);
 
     const isSoldOut = data?.data?.coupons?.soldOut ?? false;
     const isTodayEventDay = isEventDay();

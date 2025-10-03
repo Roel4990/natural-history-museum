@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useRouter, useSearchParams} from "next/navigation";
 import {useIssueCoupon} from "@/hooks/useIssueCoupon";
 import Image from "next/image";
@@ -105,13 +105,22 @@ export default function QuizContent() {
     };
 
 
+    useEffect(() => {
+        if (selectedModal === "success") {
+            const timer = setTimeout(() => {
+                router.push('/prize');
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [selectedModal, router]);
+
     const handleModalClick = async (e: React.MouseEvent) => {
         e.stopPropagation();
-        setSelectedModal(null);
-
-        if(selectedModal === "success") {
-            router.push('/prize');
+        if (selectedModal === "success") {
+            // 성공 모달은 자동으로 넘어가므로 클릭 이벤트를 무시합니다.
+            return;
         }
+        setSelectedModal(null);
     };
     const modalImageSrc =
         selectedModal === "success"

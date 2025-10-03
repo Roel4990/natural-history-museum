@@ -31,7 +31,7 @@ export default function QuizContent() {
         if (currentHour < 11 || currentHour >= 15) {
             alert("정답입니다! 아쉽지만 현재 경품 추천 시간이 아니에요.");
             setIsGeneratingCode(false);
-            return;
+            return router.push(`/?sortNum=${rawQuizNum}`);
         }
 
         const existingCode = localStorage.getItem('prizeCode');

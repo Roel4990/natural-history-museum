@@ -19,7 +19,7 @@ export default function MapPage() {
         const timer = setTimeout(() => {
             setShowDescription(false);
             setShowZoomHint(true);
-        }, 1500);
+        }, 4000);
 
         return () => clearTimeout(timer);
     }, []);

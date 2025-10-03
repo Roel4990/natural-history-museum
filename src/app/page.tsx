@@ -44,16 +44,6 @@ function PageContent() {
         queryFn: () => getStatsByDate(selectedDate)
     });
 
-    useEffect(() => {
-        if (!isLoading) {
-            const timer = setTimeout(() => {
-                router.push(`/map/${targetMap}`);
-            }, 1500);
-
-            return () => clearTimeout(timer);
-        }
-    }, [isLoading, router, targetMap]);
-
     const isSoldOut = data?.data?.coupons?.soldOut ?? false;
     const isTodayEventDay = isEventDay();
 
@@ -89,6 +79,7 @@ function PageContent() {
         <main className="flex justify-center items-center min-h-screen bg-white">
             <div
                 className="w-full max-w-[480px] mx-auto"
+                onClick={() => router.push(`/map/${targetMap}`)}
             >
                 <img
                     src={getImageSrc()}

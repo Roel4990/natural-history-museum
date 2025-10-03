@@ -15,13 +15,23 @@ export default function QuizContent() {
     const rawQuizNum = Number(searchParams.get("quizNum"));
     const quizNum = (!rawQuizNum || rawQuizNum < 1) ? 1 : rawQuizNum > 4 ? 4 : rawQuizNum;
     const isTodayEventDay = isEventDay();
+    const now = new Date();
     // 쿠폰 발급 처리 함수
     const handleCouponIssue = (isSuccess: "success" | "fail") => {
         setIsGeneratingCode(true);
         // 경품 추천일인지 체크
         if (!isTodayEventDay) {
             alert("정답입니다! 아쉽지만 오늘은 경품 추천일이 아니에요.");
+            setIsGeneratingCode(false);
             return router.push(`/?sortNum=${rawQuizNum}`);
+        }
+
+        const currentHour = now.getHours();
+        console.log("currentHour: ", currentHour)
+        if (currentHour < 11 || currentHour >= 15) {
+            alert("정답입니다! 아쉽지만 현재 경품 추천 시간이 아니에요.");
+            setIsGeneratingCode(false);
+            return;
         }
 
         const existingCode = localStorage.getItem('prizeCode');

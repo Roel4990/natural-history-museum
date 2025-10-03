@@ -1,6 +1,6 @@
 'use client';
 
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/navigation";
 import {Area} from "@/app/type";
 
@@ -15,11 +15,18 @@ export default function MapPage() {
     const router = useRouter();
     const imgRef = useRef<HTMLImageElement | null>(null);
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowDescription(false);
+            setShowZoomHint(true);
+        }, 1500);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     // 지도 전체 클릭
     const handleMapClick = () => {
         if (showDescription) {
-            setShowDescription(false);
-            setShowZoomHint(true);
             return;
         }
         if (showZoomHint) {
@@ -32,8 +39,6 @@ export default function MapPage() {
     const handleAreaClick = (e: React.MouseEvent, area: Area) => {
         e.stopPropagation();
         if (showDescription) {
-            setShowDescription(false);
-            setShowZoomHint(true);
             return;
         }
         if (showZoomHint) {

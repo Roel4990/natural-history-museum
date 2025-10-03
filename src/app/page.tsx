@@ -4,7 +4,7 @@ import React, { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { postVisitMetricVerbose } from "@/lib/api/metrics";
 import { useQuery } from "@tanstack/react-query";
-import { formatTodayISO } from "@/uils/date";
+import { formatTodayISO } from "../../lib/utils/date";
 import { getStatsByDate } from "@/lib/api/stats";
 import { isEventDay } from "../../lib/utils/isEventDay";
 
@@ -38,6 +38,14 @@ function PageContent() {
             cancelled = true;
         };
     }, [targetMap]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            router.push(`/map/${targetMap}`);
+        }, 1500);
+
+        return () => clearTimeout(timer);
+    }, [router, targetMap]);
 
     const { data, isLoading } = useQuery({
         queryKey: ['stats', selectedDate],
@@ -79,7 +87,6 @@ function PageContent() {
         <main className="flex justify-center items-center min-h-screen bg-white">
             <div
                 className="w-full max-w-[480px] mx-auto"
-                onClick={() => router.push(`/map/${targetMap}`)}
             >
                 <img
                     src={getImageSrc()}

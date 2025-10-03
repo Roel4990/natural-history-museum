@@ -6,7 +6,7 @@ import { getStatsByDate } from '@/lib/api/stats';
 import type { ApiResult } from '@/lib/api/types';
 import {StatsResponse, Zone} from "@/app/type";
 import {exportToExcel} from "@/app/admin/exportToExcel";
-import {formatTodayISO} from "@/uils/date";
+import {formatTodayISO} from "../../../lib/utils/date";
 
 const ZONES: Zone[] = ['ALL', 'A', 'B', 'C', 'D'];
 

@@ -105,7 +105,7 @@ function PageContent() {
             <div
                 className="w-full max-w-[480px] mx-auto"
                 onClick={() => {
-                    if (!isNowBeforeEleven) return;
+                    if (isNowBeforeEleven) return;
                     router.push(`/map/${targetMap}`);
                 }}
             >

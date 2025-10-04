@@ -105,7 +105,8 @@ function PageContent() {
             <div
                 className="w-full max-w-[480px] mx-auto"
                 onClick={() => {
-                    if (isNowBeforeEleven) return;
+                    // 11시 이전이면서 경품 추천 날짜라면 다음화면으로 넘어가지 않도록함
+                    if (isNowBeforeEleven && isEventDay()) return;
                     router.push(`/map/${targetMap}`);
                 }}
             >

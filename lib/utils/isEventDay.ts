@@ -1,4 +1,3 @@
-// lib/utils/isEventDay.ts
 import { eventDateConfig } from '../config/eventDates';
 
 /**

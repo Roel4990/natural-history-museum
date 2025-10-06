@@ -11,14 +11,12 @@ const areas: Area[] = [
 export default function MapPage() {
     const [selectedModal, setSelectedModal] = useState<"success" | "fail" | null>(null);
     const [showDescription, setShowDescription] = useState<boolean>(true);
-    const [showZoomHint, setShowZoomHint] = useState<boolean>(false);
     const router = useRouter();
     const imgRef = useRef<HTMLImageElement | null>(null);
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowDescription(false);
-            setShowZoomHint(true);
         }, 4000);
 
         return () => clearTimeout(timer);
@@ -29,20 +27,12 @@ export default function MapPage() {
         if (showDescription) {
             return;
         }
-        if (showZoomHint) {
-            setShowZoomHint(false);
-            return;
-        }
         setSelectedModal("fail");
     };
 
     const handleAreaClick = (e: React.MouseEvent, area: Area) => {
         e.stopPropagation();
         if (showDescription) {
-            return;
-        }
-        if (showZoomHint) {
-            setShowZoomHint(false);
             return;
         }
         setSelectedModal("success");
@@ -88,22 +78,6 @@ export default function MapPage() {
                                 alt="지도 안내 이미지"
                                 className="w-[85%] max-w-[700px] h-auto drop-shadow-xl"
                             />
-                        </div>
-                    </div>
-                )}
-
-                {/* 두 번째 안내: 좌상단 텍스트 힌트 */}
-                {showZoomHint && !showDescription && (
-                    <div
-                        className="absolute z-30"
-                        style={{
-                            top: "10%",
-                            right: "5%",
-                        }}
-                    >
-                        <div
-                            className="rounded-xl px-4 py-3 whitespace-pre-line text-black font-extrabold leading-relaxed text-base">
-                            지도를 움직여서 숨겨진 위치를 찾아보세요!
                         </div>
                     </div>
                 )}

@@ -7,7 +7,7 @@ export type Area = {
 };
 
 
-export type Zone = 'ALL' | 'A' | 'B' | 'C' | 'D';
+export type Zone = 'ALL' | 'A' | 'B' | 'C' | 'D' | 'E';
 
 export type StatsResponse = {
     date: string;

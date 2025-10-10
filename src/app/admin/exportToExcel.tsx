@@ -23,13 +23,14 @@ export function exportToExcel(data: StatsResponse) {
     XLSX.utils.book_append_sheet(workbook, summarySheet, '요약');
 
     // 2. 시간대별 방문자 시트 (구역별로 생성)
-    const zones: Zone[] = ['ALL', 'A', 'B', 'C', 'D'];
+    const zones: Zone[] = ['ALL', 'A', 'B', 'C', 'D','E'];
     const zoneNameMapping: Record<Zone, string> = {
         ALL: '전체',
         A: '자연사관',
         B: '첨단기술관',
         C: '과학탐구관',
         D: '한국과학문명관',
+        E: '기획전시실'
     };
     zones.forEach(zone => {
         const hourlyData = data.hourly[zone] || [];

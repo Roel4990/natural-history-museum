@@ -8,7 +8,7 @@ import {StatsResponse, Zone} from "@/app/type";
 import {exportToExcel} from "@/app/admin/exportToExcel";
 import {formatTodayISO} from "../../../lib/utils/date";
 
-const ZONES: Zone[] = ['ALL', 'A', 'B', 'C', 'D'];
+const ZONES: Zone[] = ['ALL', 'A', 'B', 'C', 'D', 'E'];
 
 const ZONE_NAMES: Record<Zone, string> = {
     ALL: '전체',
@@ -16,6 +16,7 @@ const ZONE_NAMES: Record<Zone, string> = {
     B: '첨단기술관',
     C: '과학탐구관',
     D: '한국과학문명관',
+    E: '기획전시실'
 };
 
 async function fetchStats(date: string): Promise<StatsResponse> {
@@ -26,13 +27,14 @@ async function fetchStats(date: string): Promise<StatsResponse> {
     } catch {
         return {
             date,
-            visits: { ALL: 0, A: 0, B: 0, C: 0, D: 0 },
+            visits: { ALL: 0, A: 0, B: 0, C: 0, D: 0, E:0 },
             hourly: {
                 ALL: [],
                 A: [],
                 B: [],
                 C: [],
                 D: [],
+                E: []
             },
             coupons: {
                 issueCount: 0,

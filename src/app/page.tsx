@@ -14,7 +14,7 @@ function PageContent() {
     const searchParams = useSearchParams();
     const selectedDate = formatTodayISO();
     const sortNum = searchParams.get('sortNum');
-    const validSortNums = ['1', '2', '3', '4'];
+    const validSortNums = ['1', '2', '3', '4', '5'];
     const targetMap = sortNum && validSortNums.includes(sortNum) ? sortNum : '1';
 
     useEffect(() => {
@@ -23,6 +23,7 @@ function PageContent() {
             '2': 'B',
             '3': 'C',
             '4': 'D',
+            '5': 'E'
         };
         const hall = hallMapping[targetMap];
 

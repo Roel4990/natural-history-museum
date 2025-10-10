@@ -13,7 +13,7 @@ export default function QuizContent() {
 
     // 유효한 퀴즈 번호 범위 설정
     const rawQuizNum = Number(searchParams.get("quizNum"));
-    const quizNum = (!rawQuizNum || rawQuizNum < 1) ? 1 : rawQuizNum > 4 ? 4 : rawQuizNum;
+    const quizNum = (!rawQuizNum || rawQuizNum < 1) ? 1 : rawQuizNum > 5 ? 5 : rawQuizNum;
     const isTodayEventDay = isEventDay();
     const now = new Date();
     // 쿠폰 발급 처리 함수
@@ -92,7 +92,8 @@ export default function QuizContent() {
             (quizNum === 1 && answerNumber === 3) ||
             (quizNum === 2 && answerNumber === 4) ||
             (quizNum === 3 && answerNumber === 2) ||
-            (quizNum === 4 && answerNumber === 1)
+            (quizNum === 4 && answerNumber === 1) ||
+            (quizNum === 5 && answerNumber === 3)
         ) {
             isSuccess = "success";
         }

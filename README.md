@@ -1,6 +1,6 @@
 # 과천과학관 경품추천 프로그램
+  - [전시 속 과학탐험 퀴즈 이벤트 경품권 발행 시스템](https://www.sciencecenter.go.kr/scipia/introduce/notice/25558) 
 
-설명
 
 # 📸 스크린샷
 

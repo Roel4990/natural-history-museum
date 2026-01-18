@@ -2,7 +2,14 @@
 
 설명
 
-이미지
+# 📸 스크린샷
+
+|       뷰       |                                                              1                                                              |                                                              2                                                              |                                                              3                                                              |                                                              4                                                              |
+|:-------------:|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------:|
+| 시작화면 | <img src="https://github.com/user-attachments/assets/5866a571-4b91-4647-89c6-c2a5f6fd086a" width="200"/> | <img src="https://github.com/user-attachments/assets/5912c390-410a-496e-b808-d4c6444bf273" width="200"/>  | <img src="https://github.com/user-attachments/assets/bcd6bcb3-c2e1-4b4d-8014-0f3cc5cb58cd" width="200"/> | <img src="https://github.com/user-attachments/assets/ea18729a-38f3-4e1b-b4d9-7fc37fee21ad" width="200"/> |
+| 지도 | <img src="https://github.com/user-attachments/assets/cea42cff-d9af-427c-987f-e703f87720da" width="200"/> | <img src="https://github.com/user-attachments/assets/1138811e-3fbd-43fe-9354-316850a3593d" width="200"/>  | <img src="https://github.com/user-attachments/assets/80edff65-6b31-4d88-a0a8-27a3ebbbbfb6" width="200"/> | <img src="https://github.com/user-attachments/assets/6411d1de-e576-4667-93d5-c98543319dbf" width="200"/> |
+| 퀴즈사진 및 경품사진 |<img src="https://github.com/user-attachments/assets/c59a6e80-cf84-4d2e-8534-4dad9caa309e" width="200"/> | <img src="https://github.com/user-attachments/assets/77bfa59c-5675-4ed7-815f-d8981125c75e" width="200"/>  | <img src="https://github.com/user-attachments/assets/c4c646b7-bc6f-4f47-be32-72d96913b601" width="200"/> | <img src="https://github.com/user-attachments/assets/ba5fc5be-738e-41a0-b649-c407de05da18" width="200"/> |
+
 
 # 🤖 팀원 소개
 <table>
